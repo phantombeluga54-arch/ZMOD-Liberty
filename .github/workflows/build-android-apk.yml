@@ -112,7 +112,11 @@ jobs:
           export ANDROID_HOME="$(cygpath -u "$ANDROID_HOME")"
           export JAVA_HOME="$(cygpath -u "$JAVA_HOME")"
           bash os/android/scripts/build_driver_proxy.sh
-
+      - name: Install Android CURL and OpenSSL via vcpkg
+        run: |
+          export ANDROID_NDK_HOME="$(cygpath -u "$ANDROID_HOME")/ndk/$NDK_VER"
+          /c/vcpkg/vcpkg.exe install curl[openssl]:arm64-android nlohmann-json:arm64-android
+          
       # The slow step. Its own timeout leaves time for the cache save below,
       # so a build that runs out of time keeps its progress for the next run.
       - name: Build the native libraries
