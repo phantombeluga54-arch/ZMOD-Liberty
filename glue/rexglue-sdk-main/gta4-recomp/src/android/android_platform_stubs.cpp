@@ -84,13 +84,3 @@ void RequestMicrophonePermission(std::function<void()> completion) {
 }
 
 }  // namespace gta4::voice
-
-namespace LibertyRecomp::Network {
-
-rex::system::xam::LiveBackendServices CreateCommunityMultiplayerBackend(
-    const rex::system::xam::LiveConfig&, const rex::system::xam::LiveIdentity&) {
-  REXLOG_WARN("Community multiplayer is not available on Android");
-  return {};
-}
-
-}  // namespace LibertyRecomp::Network
