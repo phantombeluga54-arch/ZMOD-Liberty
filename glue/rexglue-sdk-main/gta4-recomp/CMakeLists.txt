@@ -327,7 +327,6 @@ find_package(nlohmann_json CONFIG REQUIRED)
         ${GTA4_ANDROID_SOURCES}
         src/android/android_platform_stubs.cpp
         ${GENERATED_SOURCES}
-    )
 
     set_property(SOURCE generated/gta4_register.cpp APPEND PROPERTY COMPILE_OPTIONS
         "$<$<CONFIG:Release,RelWithDebInfo>:-O0>")
