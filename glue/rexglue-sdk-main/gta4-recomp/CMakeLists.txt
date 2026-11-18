@@ -314,13 +314,15 @@ if(APPLE AND LIBERTY_RECOMP_TARGET_PLATFORM STREQUAL "desktop")
         COMMENT "Verifying macOS runtime closure, architecture, minimum OS, and signature..."
         VERBATIM)
 elseif(ANDROID)
+find_package(CURL REQUIRED)
+find_package(OpenSSL REQUIRED)
+find_package(nlohmann_json CONFIG REQUIRED)
+    
     # SDL3's SDLActivity loads libmain.so and calls its SDL_main. The runtime,
     # SDL3 and the GPU plugins are unpacked next to it in nativeLibraryDir;
     # title resources are copied out of the APK by the Java host, which points
     # REX_RESOURCES_DIR at them.
-    set(GTA4_ANDROID_SOURCES ${GTA4_APP_SOURCES})
-    list(REMOVE_ITEM GTA4_ANDROID_SOURCES src/network/community_multiplayer.cpp)
-
+    set(GTA4_ANDROID_SOURCES ${GTA4_APP_SOURCES}
     add_library(LibertyRecomp SHARED
         ${GTA4_ANDROID_SOURCES}
         src/android/android_platform_stubs.cpp
@@ -355,6 +357,11 @@ elseif(ANDROID)
     target_link_libraries(LibertyRecomp PRIVATE
         rex::runtime
         xxHash::xxhash
+        CURL::libcurl
+        OpenSSL::SSL
+        OpenSSL::Crypto
+        nlohmann_json::nlohmann_json
+        
         SDL3::SDL3
         utf8cpp
         z
