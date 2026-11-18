@@ -85,6 +85,7 @@ if [ ! -f "$BUILD_DIR/build.ninja" ] || \
     -DANDROID_ABI=arm64-v8a \
     -DANDROID_PLATFORM=android-28 \
     -DANDROID_STL=c++_shared \
+    -DCMAKE_PREFIX_PATH="C:/vcpkg/installed/arm64-android" \
     -DLIBERTY_RECOMP_TARGET_PLATFORM=android \
     -DLIBERTY_RECOMP_ANDROID_RUNTIME_ASSETS=ON \
     -DCMAKE_BUILD_TYPE="$BUILD_TYPE" \
