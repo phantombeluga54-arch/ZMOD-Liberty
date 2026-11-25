@@ -322,7 +322,7 @@ find_package(nlohmann_json CONFIG REQUIRED)
     # SDL3 and the GPU plugins are unpacked next to it in nativeLibraryDir;
     # title resources are copied out of the APK by the Java host, which points
     # REX_RESOURCES_DIR at them.
-    set(GTA4_ANDROID_SOURCES ${GTA4_APP_SOURCES}
+    set(GTA4_ANDROID_SOURCES ${GTA4_APP_SOURCES})
     add_library(LibertyRecomp SHARED
         ${GTA4_ANDROID_SOURCES}
         src/android/android_platform_stubs.cpp
