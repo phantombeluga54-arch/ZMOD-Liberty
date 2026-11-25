@@ -314,6 +314,8 @@ if(APPLE AND LIBERTY_RECOMP_TARGET_PLATFORM STREQUAL "desktop")
         COMMENT "Verifying macOS runtime closure, architecture, minimum OS, and signature..."
         VERBATIM)
 elseif(ANDROID)
+    list(APPEND CMAKE_FIND_ROOT_PATH "C:/vcpkg/installed/arm64-android")
+    set(CURL_USE_STATIC_LIBS ON)
 find_package(CURL REQUIRED)
 find_package(OpenSSL REQUIRED)
 find_package(nlohmann_json CONFIG REQUIRED)
