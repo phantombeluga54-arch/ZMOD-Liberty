@@ -1581,6 +1581,21 @@ bool LanSessionDirectory::Join(uint64_t session_id, const SessionMember& member)
   if (!ready() || !member.xuid) {
     return false;
   }
+  std::optional<SessionRecord> hosted_update;
+  {
+    std::lock_guard lock(mutex_);
+    if (auto hosted = hosted_sessions_.find(session_id); hosted != hosted_sessions_.end()) {
+      if (!AddMember(hosted->second, member)) {
+        return false;
+      }
+      hosted->second.last_seen = std::chrono::steady_clock::now();
+      hosted_update = hosted->second;
+      search_condition_.notify_all();
+    }
+  }
+  if (hosted_update) {
+    return SendRecord(*hosted_update, kOperationAdvertise);
+}
   SessionRecord operation;
   operation.session_id = session_id;
   operation.members.push_back(member);
